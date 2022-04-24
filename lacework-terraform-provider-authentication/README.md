@@ -81,7 +81,7 @@ provider "lacework" {
 ...
 ```
 
-### Example 3: Referencing a Specific Sub-Account
+### Example 4: Referencing a Specific Sub-Account
 Referencing a sub-account explicitly can be a good option when a profile for the sub-account has not yet been set up using the Lacework CLI. Aside from this case, we recommend using the `profile` argument to reference specific sub-accounts because it makes clear what the intended credentials will be should the account not be managed by the default profile configured in the Lacework CLI.
 
 If the sub-account is NOT managed by the default profile, then it **MUST** be added as an additional profile using the Lacework CLI to allow credentials to be accessed securely. In this case, the most reliable option for managing the sub-account will be to use the `profile` argument instead of the `subaccount` argument (see [Example 2: Configuring the Lacework Provider from a CLI Profile](#example-2-configuring-the-lacework-provider-from-a-cli-profile)).

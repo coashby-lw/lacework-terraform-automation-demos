@@ -83,7 +83,7 @@ Detailed instruction on how to install the Lacework CLI for your machine can be 
 1. Download and install the Lacework CLI
 1. Generate the required API secret and API key to enable use of the Lacework CLI.
 
-### Step 2: Integrate the Lacework Provider
+### Step 2: Install the Lacework Provider
 To begin with the Lacework Terraform provider you must first make sure the provider gets installed on your host machine. This can be achieved by using this block of code:
 ```hcl
 terraform {
@@ -121,4 +121,7 @@ Providers required by configuration:
 └── provider[registry.terraform.io/lacework/lacework] 0.17.0
 ```
 
-**Now we are ready to begin. So let's get started!**
+# Summary
+Now we are ready to begin.
+
+**So let's get started!**
