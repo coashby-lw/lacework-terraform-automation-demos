@@ -79,7 +79,7 @@ Additional resources and up-to-date references for the Lacework Terraform provid
 This section provides additional context and examples for using the provider for the first time.
 
 ### Step 1: Install the Lacework CLI
-Detailed instruction on how to install the Lacework CLI for your machine can be found on the [Lacework CLI Docs: Get Started](https://docs.lacework.com/cli) page. There you will be provided with instructions on how to:
+Detailed instructions on how to install the Lacework CLI for your machine can be found on the [Lacework CLI Docs: Get Started](https://docs.lacework.com/cli) page. There you will be provided with instructions on how to:
 1. Download and install the Lacework CLI
 1. Generate the required API secret and API key to enable use of the Lacework CLI.
 
