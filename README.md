@@ -119,13 +119,13 @@ Once this code is added to your Terraform configuration you can run the command 
 
 If you do not receive any errors when running the `terraform init` command, then you should be able to now see `lacework/lacework` listed as an available provider when running the command below:
 ```sh
-> terraform providers
+> terraform --version
 ```
 An example output from this command looks like this:
 ```sh
-Providers required by configuration:
-.
-└── provider[registry.terraform.io/lacework/lacework] 0.17.0
+Terraform v1.1.9
+...
++ provider registry.terraform.io/lacework/lacework v0.17.0
 ```
 
 # Summary
