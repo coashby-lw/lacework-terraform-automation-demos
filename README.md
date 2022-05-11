@@ -69,9 +69,10 @@ To override any parameter sourced from the Lacework configuration *toml*, simply
 
 
 # Getting Started
-There are two basic steps to getting started with the Lacework Terraform provider:
+There are three basic steps to getting started with the Lacework Terraform provider:
 1. Install the Lacework CLI
-1. Install the Lacework Terraform provider
+1. Install Terraform
+1. Install the Lacework Terraform Provider
 
 Additional resources and up-to-date references for the Lacework Terraform provider can be found on its registry page: [Lacework Terraform Registry](https://registry.terraform.io/providers/lacework/lacework/latest).
 
@@ -83,11 +84,14 @@ Detailed instructions on how to install the Lacework CLI for your machine can be
 1. Download and install the Lacework CLI
 1. Generate the required API secret and API key to enable use of the Lacework CLI.
 
-### Step 2: Install the Lacework Provider
-To begin with the Lacework Terraform provider you must first make sure both the Terraform binary and provider are installed on your host machine.
+### Step 2: Install Terraform
 Installing the Terraform binary is simple and instructions specific to your host OS can be found on the [Terraform Downloads](https://www.terraform.io/downloads) page.
 
-As for installing the provider, once the Terraform binary is able to be run on your host, the block of code below can be used to achieve that task. However, always check in with the [Lacework Terraform Registry](https://registry.terraform.io/providers/lacework/lacework/latest) page for the latest version.
+### Step 3: Install the Lacework Provider
+Once the Terraform binary is able to be run on your host, the block of code below can be used to install the Lacework provider.
+Place it withing your Terraform configuration file and run `terraform init` to complete the process.
+Also, remember to check in with the [Lacework Terraform Registry](https://registry.terraform.io/providers/lacework/lacework/latest) page for the latest version.
+
 ```hcl
 terraform {
   required_providers {
