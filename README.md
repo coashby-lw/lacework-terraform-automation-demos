@@ -1,5 +1,5 @@
 # Lacework Terraform Automation Guide
-This guide explains how to manage Lacework using Terraform infrastructure as code (IaC). The goal of using the Lacework Terraform provider is to help automate the management of the platform. The first part of this process entails installing and authenticating the Lacework Terraform provider to connect the IaC resources with the Lacework account (or accounts) you want to manage. The additional demos highlight key aspects of usage and provide best practices for using the Lacework Terraform provider.
+This guide explains how to manage Lacework using Terraform infrastructure as code (IaC). The Lacework Terraform provider helps automate the management of Lacework. 
 
 ## Contents
 | Demo | Description | Prerequisite Demos | Documentation |
@@ -28,7 +28,6 @@ This guide explains how to manage Lacework using Terraform infrastructure as cod
 | **Lacework CLI +v0.32.0**               | Open source tool for managing Lacework | *ALL* | See [Lacework CLI Documentation](https://docs.lacework.com/cli) for details on how to install the latest version of the tool.      |
 | **Terraform**                           |  The Hashicorp infrastructure as code management tool | *ALL* | See [Install Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli) for details on how to install the Terraform binary. |
 
-
 Before installing and authenticating the Lacework Terraform provider, it's important to understand:  
 - *The difference between a Lacework account, organization, and its sub-accounts*
 - *How best to source values for the Lacework provider configuration*
@@ -36,6 +35,8 @@ Before installing and authenticating the Lacework Terraform provider, it's impor
 Before we discuss *how* to manage the Lacework platform, we'll discuss how accounts are structured within. For more detailed information on Lacework account structure, visit [Lacework Academy](https://academy.lacework.com) to see this video on [Initial Account Setup](https://academy.lacework.com/learn/video/initial-account-setup).
 
 ### The Lacework organization
+The first part of this process entails installing and authenticating the Lacework Terraform provider to connect the IaC resources with the Lacework account (or accounts) you want to manage.
+
 First in the hierarchy is the *organization level*. The organization is an elevated account that has an overall view of all the accounts contained within Lacework. This is why in the Lacework platform, the organization and first listed account share the same name. In the platform, the organization is denoted by "(Organization)" appearing after the name, and the primary account that was elevated to create the organization is denoted by "(Account)".
 
 Users within the platform who have organization admin privileges can manage the organization itself, along with all accounts under the organization. These privileges also extend to API keys created by organization admin users. Using API keys created by an organization admin is required when managing the organization through IaC. It is also a convenient way to manage multiple accounts using a single API key. Configuring your IaC environment with a organization admin API key will allow the user to manage all of the organizations accounts as well.
