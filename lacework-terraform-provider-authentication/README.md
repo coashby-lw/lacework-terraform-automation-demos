@@ -1,10 +1,10 @@
 # Lacework Terraform Provider Authentication
-This demo walks through various ways to authenticate the Lacework Terraform provider with your Lacework Account. It is assumed that you have performed the necessary setup and installation discussed in the [Getting Started](./../README.md) section of the top level Lacework Terraform Automation Demos README.md.
+This guide walks through various ways to authenticate the Lacework Terraform provider with your Lacework account. It is assumed that you have performed the necessary setup and installation discussed in the [Getting Started](./../README.md) section of the top level Lacework Terraform Automation Demos README.md.
 
 
-# Using the Lacework Provider
+# Using the Lacework provider
 
-## Lacework Provider Arguments
+## Lacework provider arguments
 An up-to-date list of provider arguments can be found on the [Lacework Terraform registry Argument Reference](https://registry.terraform.io/providers/lacework/lacework/latest/docs#argument-reference) page. However, we list the set of provider arguments here for convenience.
 | Lacework Provider Argument | Description |
 |----------------------------|-------------|
@@ -18,24 +18,24 @@ An up-to-date list of provider arguments can be found on the [Lacework Terraform
 If the recommended configuration using the Lacework CLI is followed then `profile`, `account`, `api_key`, `api_secret`, and `subaccount` arguments can be sourced from the CLI configuration. Even if the Lacework CLI is configured, you can override these values by explicitly setting them in the Lacework Terraform provider block.
 
 
-## Lacework Provider Configurations
+## Lacework provider configurations
 The Lacework provider configuration defines the Lacework account that will be managed and provides the credentials necessary to authenticate management through Terraform.
 
-To give more context and meaning to the demo, we have created an example TOML file that defines the Lacework accounts configured with the Lacework CLI on our hypothetical host. The TOML file and its syntax is further discussed in [Lacework Terraform Automation Demos Preface: How It Works](./../README.md#how-it-works).
+To give more context and meaning to the demo, we created an example TOML file that defines the Lacework accounts configured with the Lacework CLI on our hypothetical host. The TOML file and its syntax is further discussed in [Lacework Terraform Automation Demos Preface: How It Works](./../README.md#how-it-works).
 
 ![Example TOML File](./../collateral/images/example-toml.png)
 
-As you examine each of the examples, you will note that there is **never a need to expose the API key or API secret for a Lacework account!**
-This is key for Developers and DevSecOps teams to ensure that code managed in repositories does not expose sensitive credentials.
+As you examine each of the examples, note that there is **never a need to expose the API key or API secret for a Lacework account!**
+This is key for developers and DevSecOps teams to ensure that code managed in repositories does not expose sensitive credentials.
 
-### Example 1: The Default Lacework Provider
+### Example 1: The default Lacework provider
 Using the default provider configuration does not require any configuration arguments to be set. Use this configuration when the `default` profile set by the Lacework CLI is the Lacework account you wish to manage.
 ```hcl
 ...
 #------------------------------------------------------------------------------
 # This Lacework provider will be configured to match the [default] profile
 # specified in the .lacework.toml file located on the HOST machine. No other
-# parameters are needed in order to use the default Lacework account configured
+# parameters are needed to use the default Lacework account configured
 # on the HOST.
 #------------------------------------------------------------------------------
 provider "lacework" {
@@ -43,15 +43,15 @@ provider "lacework" {
 }
 ...
 ```
-### Example 2: Configuring the Lacework Provider from a CLI Profile
-In addition to accessing the default profile, additional Lacework accounts can be added via the Lacework CLI. Instructions to do so can be found in the CLI documentation and following the instruction under [Multiple Profiles](https://docs.lacework.com/cli#multiple-profiles). Once added, and profiles are available in your CLI configuration, the account associated with the profile can be accessed using the method below. In this example we are using a profile available in the example TOML file above.
+### Example 2: Configuring the Lacework provider from a CLI profile
+In addition to accessing the default profile, additional Lacework accounts can be added via the Lacework CLI. Instructions to do so can be found in the CLI documentation and under [Multiple Profiles](https://docs.lacework.com/cli#multiple-profiles). Once added, and profiles are available in your CLI configuration, the account associated with the profile can be accessed using the method below. In this example,   we are using a profile available in the example TOML file above.
 ```hcl
 ...
 #------------------------------------------------------------------------------
 # This Lacework provider will be configured to match the profile specified by
-# the `profile` argument within the provider block. The profile MUST exists
+# the `profile` argument within the provider block. The profile MUST exist
 # within the .lacework.toml file located on the HOST machine. No other
-# parameters are needed in order to use the Lacework account referenced under
+# parameters are needed to use the Lacework account referenced under
 # the profile.
 #------------------------------------------------------------------------------
 provider "lacework" {
@@ -60,14 +60,14 @@ provider "lacework" {
 }
 ...
 ```
-### Example 3: Referencing a Specific Account
-Referencing an account explicitly can be a good option when a profile for the account has not yet been set up using the Lacework CLI. Aside from this case, we recommend using the `profile` argument to reference specific accounts because it makes clear what the intended credentials will be should the account not be managed by the default profile configured in the Lacework CLI.
+### Example 3: Referencing a specific account
+Referencing an account explicitly can be a good option when a profile for the account has not yet been set up using the Lacework CLI. Aside from this case, we recommend using the `profile` argument to reference specific accounts because it clarifies what the intended credentials will be should the account not be managed by the default profile configured in the Lacework CLI.
 
 If the account is NOT managed by the default profile, then it **MUST** be added as an additional profile using the Lacework CLI to allow credentials to be accessed securely. In this case, the most reliable option for managing the account will be to use the `profile` argument instead of the `account` argument (see [Example 2: Configuring the Lacework Provider from a CLI Profile](#example-2-configuring-the-lacework-provider-from-a-cli-profile)).
 ```hcl
 ...
 #------------------------------------------------------------------------------
-# Since no sub-account is specified in the provider block, this Lacework
+# Because no sub-account is specified in the provider block, this Lacework
 # provider will be configured to match the PRIMARY account associated with the
 # Lacework account "my-primary-account". Running the Lacework CLI command:
 #     lacework configure list
@@ -81,14 +81,14 @@ provider "lacework" {
 ...
 ```
 
-### Example 4: Referencing a Specific Sub-Account
-Referencing a sub-account explicitly can be a good option when a profile for the sub-account has not yet been set up using the Lacework CLI. Aside from this case, we recommend using the `profile` argument to reference specific sub-accounts because it makes clear what the intended credentials will be should the account not be managed by the default profile configured in the Lacework CLI.
+### Example 4: Referencing a specific sub-account
+Referencing a sub-account explicitly can be a good option when a profile for the sub-account has not yet been set up using the Lacework CLI. Aside from this case, we recommend using the `profile` argument to reference specific sub-accounts because it clarifies what the intended credentials will be should the account not be managed by the default profile configured in the Lacework CLI.
 
 If the sub-account is NOT managed by the default profile, then it **MUST** be added as an additional profile using the Lacework CLI to allow credentials to be accessed securely. In this case, the most reliable option for managing the sub-account will be to use the `profile` argument instead of the `subaccount` argument (see [Example 2: Configuring the Lacework Provider from a CLI Profile](#example-2-configuring-the-lacework-provider-from-a-cli-profile)).
 ```hcl
 ...
 #------------------------------------------------------------------------------
-# Since no account is specified in the provider block, this provider will use
+# Because no account is specified in the provider block, this provider will use
 # the "default" profile enabled by the Lacework CLI and use this account when
 # referring to the sub-account specified in the provider
 # block. 
@@ -99,15 +99,15 @@ provider "lacework" {
 }
 ...
 ```
-## Organization Admin Configurations
-As an organization admin you will have elevated privileges and can apply changes to the organization level of your Lacework account. In order to apply changes to an organization using Terraform, you must set the `organization` argument to `true` within a provider referencing the organization level account.
+## Organization admin configurations
+As an organization admin, you will have elevated privileges and can apply changes to the organization level of your Lacework account. To apply changes to an organization using Terraform, you must set the `organization` argument to `true` within a provider referencing the organization level account.
 
 Continuing with the example TOML file defined above, we arrive at the following provider block.
 
 ```hcl
 ...
 #------------------------------------------------------------------------------
-# Since no account is specified in the provider block, this provider will use
+# Because no account is specified in the provider block, this provider will use
 # the "default" profile enabled by the Lacework CLI and use this account when
 # referring to the sub-account specified in the provider
 # block. 
@@ -120,8 +120,8 @@ provider "lacework" {
 ...
 ```
 
-# Managing Multiple Providers
-Up until now, our example code has only shown one provider being configured. But, it may likely be the case that you wish to manage multiple Lacework accounts within once Terraform configuration file. To do so, simple add the additional provider blocks into your configuration file.
+# Managing multiple providers
+Until now, our example code has only shown one provider being configured. However, if you wish to manage multiple Lacework accounts within once Terraform configuration file, you must add the additional provider blocks into your configuration file.
 
 ```hcl
 ...
@@ -144,25 +144,25 @@ provider "lacework" {
 ...
 ```
 
-Another thing to notice in this example is the introduction of the `alias` argument within the provider block.
+Note the introduction of the `alias` argument within the provider block.
 
 Aliases are an important feature of all Terraform providers, not just the Lacework provider. They allow the programmer to reference the provider in future calls by using the extra *name segment* to uniquely identify a particular provider configuration. To do so, Terraform has specified the syntax as:
 
 `<PROVIDER_NAME>.<ALIAS>`
 
-Thus, in our case, to reference each of the providers multi-provider example above, one would write the following:
+Thus, in our case, to reference each of the providers multi-provider example above, you would write the following:
 
 `lacework.primary` and `lacework.my_second_account`
 
-to reference the provider configured with the "primary" account profile and the "my-second-account" account profile respectively.
+to reference the provider configured with the "primary" account profile and the "my-second-account" account profile, respectively.
 
-Here, we have chosen to make the alias name match as closely to the profile name as possible. The profile name and alias needn't be the same, however, for keeping track of which account is being managed by which provider, having a consistent naming convention is key to avoiding ambiguity.
+Here, we chose to make the alias name match as closely to the profile name as possible. The profile name and alias needn't be the same, however, to track which account is managed by which provider, a consistent naming convention is key to avoid ambiguity.
 
 # Summary
-After installing the Lacework provider (see [Getting Started: Install the Lacework Provider](./../README.md#step-2-install-the-lacework-provider)), authenticating it with each Lacework account you wish to manage is the next step. This is performed in the provider configuration block and the Lacework CLI is the best tool for securely managing this process.
+After installing the Lacework provider (see [Getting Started: Install the Lacework Provider](./../README.md#step-2-install-the-lacework-provider)), you must authenticate it with each Lacework account you wish to manage. This is performed in the provider configuration block and the Lacework CLI is the best tool to securely manage this process.
 
-By using the Lacework CLI, the Lacework Terraform provider can use any Lacework account managed by the CLI by setting its `profile` argument to match the *profile* name saved in the CLI configuration TOML file. Not only does this provide a discrete mechanism for sharing sensitive parameters like the `api_key` and `api_secrete`, it also provides a convenient way of configuring Lacework Terraform providers without ambiguity. This is especially true when trying to manage multiple accounts with only account admin level API keys.
+By using the Lacework CLI, the Lacework Terraform provider can use any Lacework account managed by the CLI by setting its `profile` argument to match the *profile* name saved in the CLI configuration TOML file. Not only does this provide a discrete mechanism for sharing sensitive parameters like the `api_key` and `api_secret`, it also provides a convenient way to configure Lacework Terraform providers without ambiguity. This is especially true when managing multiple accounts with only account admin level API keys.
 
-Lastly, we discovered that we specify more than one provider in our Terraform configuration files. When we do so, it is best to also set the `alias` *meta-argument* which is an argument Terraform defines for all providers. Once defined, we can use the alias to uniquely reference Lacework provider configurations.
+Lastly, we discovered that we specify more than one provider in our Terraform configuration files. When we do so, it is best to also set the `alias` *meta-argument*, which is an argument Terraform defines for all providers. Once defined, we can use the alias to uniquely reference Lacework provider configurations.
 
-Now that we have configured our Lacework providers to reference specific Lacework accounts, we can start managing our infrastructure! In the remaining demos, we will see how our providers are used by Lacework Terraform *resources* and *modules* to accomplish tasks within our Lacework accounts.
+Once we configure our Lacework providers to reference specific Lacework accounts, we can start managing our infrastructure! In the remaining demos, we will see how our providers are used by Lacework Terraform *resources* and *modules* to accomplish tasks within our Lacework accounts.
